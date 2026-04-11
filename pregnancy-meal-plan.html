@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>孕期两周食谱</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6f0;
+    --warm-white: #fff9f2;
+    --sage: #7a9e7e;
+    --sage-light: #b5ceb8;
+    --sage-dark: #4e7153;
+    --terracotta: #c97b5a;
+    --terracotta-light: #e8b99e;
+    --gold: #c9a84c;
+    --text-dark: #2c2416;
+    --text-mid: #5c4f3a;
+    --text-light: #9b8e7a;
+    --border: #e8ddd0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'Noto Sans SC', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.7;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #4e7153 0%, #7a9e7e 50%, #b5ceb8 100%);
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .header-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+  }
+  .header h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 28px;
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .header p {
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    font-weight: 300;
+  }
+  .week-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .week-tab {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    padding: 8px 28px;
+    border-radius: 24px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+  .week-tab.active {
+    background: #fff;
+    color: var(--sage-dark);
+    font-weight: 500;
+  }
+
+  /* Nutrition bar */
+  .nutrition-bar {
+    background: var(--sage-dark);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .nutrition-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.9);
+    font-size: 11px;
+    font-weight: 300;
+  }
+  .nutrition-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+  }
+
+  /* Main content */
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+  }
+
+  /* Week view */
+  .week-view { display: none; }
+  .week-view.active { display: block; }
+
+  .week-label {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    color: var(--sage-dark);
+    padding: 20px 0 12px;
+    border-bottom: 2px solid var(--sage-light);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .week-label::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 20px;
+    background: var(--terracotta);
+    border-radius: 2px;
+  }
+
+  /* Day card */
+  .day-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .day-header {
+    background: linear-gradient(90deg, var(--sage) 0%, var(--sage-light) 100%);
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .day-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .day-focus {
+    font-size: 11px;
+    color: rgba(255,255,255,0.85);
+    background: rgba(0,0,0,0.12);
+    padding: 2px 10px;
+    border-radius: 10px;
+  }
+
+  .meals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+  .meal-block {
+    padding: 14px 16px;
+    border-right: 1px solid var(--border);
+  }
+  .meal-block:last-child { border-right: none; }
+  .meal-block + .meal-block { border-top: none; }
+
+  .meal-type {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text-light);
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .meal-type-icon { font-size: 13px; }
+  .meal-items {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.9;
+  }
+  .meal-items .main { color: var(--text-dark); font-weight: 500; font-size: 14px; }
+  .meal-items .side { color: var(--text-mid); font-size: 12px; }
+
+  /* Snack row */
+  .snack-row {
+    border-top: 1px solid var(--border);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fdf8f3;
+  }
+  .snack-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--terracotta);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .snack-content {
+    font-size: 12px;
+    color: var(--text-mid);
+  }
+
+  /* Nutrition tips */
+  .tips-section {
+    background: linear-gradient(135deg, #fff9f2, #f5ede0);
+    border: 1px solid var(--terracotta-light);
+    border-radius: 14px;
+    padding: 20px;
+    margin: 24px 0 0;
+  }
+  .tips-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    color: var(--terracotta);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .tip-item {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+  .tip-dot {
+    width: 5px; height: 5px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  /* Supplement box */
+  .supplement-box {
+    background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+    border-radius: 14px;
+    padding: 20px;
+    margin-top: 16px;
+    color: #fff;
+  }
+  .supplement-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    margin-bottom: 12px;
+    opacity: 0.95;
+  }
+  .supplement-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .supplement-tag {
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.95);
+  }
+
+  @media (max-width: 600px) {
+    .meals-grid { grid-template-columns: 1fr; }
+    .meal-block { border-right: none; border-bottom: 1px solid var(--border); }
+    .meal-block:last-child { border-bottom: none; }
+    .tips-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">孕 13 周 + · 孕中期初</div>
+  <h1>两周营养食谱</h1>
+  <p>均衡补充 · 循环使用 · 母婴同益</p>
+  <div class="week-tabs">
+    <button class="week-tab active" onclick="switchWeek(1)">第一周</button>
+    <button class="week-tab" onclick="switchWeek(2)">第二周</button>
+  </div>
+</div>
+
+<div class="nutrition-bar">
+  <div class="nutrition-item"><div class="nutrition-dot" style="background:#b5ceb8"></div>叶酸 · 神经</div>
+  <div class="nutrition-item"><div class="nutrition-dot" style="background:#e8b99e"></div>铁质 · 造血</div>
+  <div class="nutrition-item"><div class="nutrition-dot" style="background:#c9a84c"></div>钙 · 骨骼</div>
+  <div class="nutrition-item"><div class="nutrition-dot" style="background:#c97b5a"></div>DHA · 脑发育</div>
+  <div class="nutrition-item"><div class="nutrition-dot" style="background:#9b8e7a"></div>蛋白质 · 生长</div>
+</div>
+
+<div class="container">
+
+  <!-- 第一周 -->
+  <div class="week-view active" id="week1">
+    <div class="week-label">第一周</div>
+
+    <!-- 周一 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周一</span>
+        <span class="day-focus">🐟 DHA + 铁质日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">全麦面包 + 水煮蛋</div>
+            <div class="side">牛奶一杯 · 猕猴桃半个</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">清蒸三文鱼</div>
+            <div class="side">米饭 · 炒菠菜 · 番茄蛋花汤</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">猪肝炒洋葱</div>
+            <div class="side">米饭 · 清炒西兰花 · 豆腐汤</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：核桃 3 颗 + 苹果半个 ｜ 下午：酸奶 150ml</span>
+      </div>
+    </div>
+
+    <!-- 周二 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周二</span>
+        <span class="day-focus">🥛 钙质 + 蛋白质日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">小米粥 + 鸡蛋羹</div>
+            <div class="side">豆腐乳少量 · 橙子半个</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">鸡胸肉炖豆腐</div>
+            <div class="side">米饭 · 凉拌黄瓜 · 紫菜蛋花汤</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">鲈鱼豆腐煲</div>
+            <div class="side">糙米饭 · 炒空心菜</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：牛奶 200ml ｜ 下午：芝麻糊半碗 + 红枣 2 颗</span>
+      </div>
+    </div>
+
+    <!-- 周三 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周三</span>
+        <span class="day-focus">🥦 叶酸 + 维C日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">燕麦粥 + 煎蛋</div>
+            <div class="side">牛奶 · 草莓 6 颗</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">牛肉炒西兰花</div>
+            <div class="side">米饭 · 冬瓜汤 · 烫菠菜</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">虾仁蒸蛋</div>
+            <div class="side">米饭 · 炒彩椒 · 豆芽汤</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：猕猴桃 1 个 ｜ 下午：坚果一小把（核桃+杏仁）</span>
+      </div>
+    </div>
+
+    <!-- 周四 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周四</span>
+        <span class="day-focus">🦐 锌 + 优质蛋白日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">豆浆 + 包子</div>
+            <div class="side">水煮蛋 1 个 · 香蕉半根</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">白灼虾 + 炒芥蓝</div>
+            <div class="side">米饭 · 南瓜粥</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">鸡腿炖香菇</div>
+            <div class="side">米饭 · 蒜蓉菠菜 · 蛋花汤</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：酸奶 150ml ｜ 下午：蒸红薯半个</span>
+      </div>
+    </div>
+
+    <!-- 周五 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周五</span>
+        <span class="day-focus">🐟 DHA + 碘质日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">三明治（全麦+鸡蛋+生菜）</div>
+            <div class="side">牛奶 · 橙子半个</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">清蒸鳕鱼</div>
+            <div class="side">米饭 · 炒紫甘蓝 · 裙带菜豆腐汤</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">番茄牛腩</div>
+            <div class="side">米饭 · 蒸南瓜 · 青菜汤</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：核桃 3 颗 + 葡萄干少量 ｜ 下午：牛奶布丁</span>
+      </div>
+    </div>
+
+    <!-- 周六 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周六</span>
+        <span class="day-focus">🥩 铁 + 维生素B日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">皮蛋瘦肉粥</div>
+            <div class="side">小笼包 2 个 · 猕猴桃半个</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">红烧排骨</div>
+            <div class="side">米饭 · 清炒莴笋 · 番茄蛋汤</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">沙丁鱼炒饭</div>
+            <div class="side">凉拌黄瓜 · 紫菜蛋花汤</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：苹果 1 个 ｜ 下午：豆腐花（少糖）</span>
+      </div>
+    </div>
+
+    <!-- 周日 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周日</span>
+        <span class="day-focus">🌿 综合营养日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">鸡蛋蔬菜饼</div>
+            <div class="side">豆浆 · 香蕉半根</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">三文鱼豆腐汤</div>
+            <div class="side">糙米饭 · 蒜蓉西兰花 · 凉拌木耳</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">鸡肉蔬菜炖粉条</div>
+            <div class="side">米饭 · 炒豌豆苗</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：酸奶 + 蓝莓 ｜ 下午：板栗 5 颗 + 核桃 2 颗</span>
+      </div>
+    </div>
+
+  </div><!-- /week1 -->
+
+  <!-- 第二周 -->
+  <div class="week-view" id="week2">
+    <div class="week-label">第二周</div>
+
+    <!-- 周一 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周一</span>
+        <span class="day-focus">🥚 蛋白质 + 叶酸日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">燕麦牛奶粥 + 煮蛋</div>
+            <div class="side">草莓 6 颗</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">鸡肉炒芦笋</div>
+            <div class="side">米饭 · 菠菜豆腐汤 · 拌海带</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">清蒸秋刀鱼</div>
+            <div class="side">米饭 · 番茄炒蛋 · 丝瓜汤</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：牛奶 200ml ｜ 下午：核桃 3 颗 + 枸杞少量</span>
+      </div>
+    </div>
+
+    <!-- 周二 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周二</span>
+        <span class="day-focus">🦴 钙 + 磷日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">芝麻糊 + 鸡蛋饼</div>
+            <div class="side">牛奶 · 苹果半个</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">猪骨萝卜汤</div>
+            <div class="side">米饭 · 炒油麦菜 · 凉拌豆腐</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">虾仁炒豆腐</div>
+            <div class="side">糙米饭 · 蒸胡萝卜 · 蛋花汤</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：酸奶 150ml ｜ 下午：蒸紫薯半个 + 牛奶</span>
+      </div>
+    </div>
+
+    <!-- 周三 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周三</span>
+        <span class="day-focus">🐟 DHA + 碘日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">紫菜蛋花粥</div>
+            <div class="side">全麦馒头 · 橙子半个</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">三文鱼炒饭</div>
+            <div class="side">凉拌西兰花 · 紫菜汤</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">牛肉炖土豆</div>
+            <div class="side">米饭 · 炒菠菜 · 冬瓜汤</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：猕猴桃 1 个 ｜ 下午：坚果一小把</span>
+      </div>
+    </div>
+
+    <!-- 周四 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周四</span>
+        <span class="day-focus">🩸 铁 + 维C日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">全麦面包 + 牛奶</div>
+            <div class="side">鸡蛋 1 个 · 草莓 8 颗</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">猪肝菠菜汤</div>
+            <div class="side">米饭 · 炒彩椒 · 凉拌木耳</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">鳕鱼炖豆腐</div>
+            <div class="side">米饭 · 番茄炒蛋 · 紫菜汤</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：橙汁（鲜榨）半杯 ｜ 下午：红枣 3 颗 + 核桃 2 颗</span>
+      </div>
+    </div>
+
+    <!-- 周五 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周五</span>
+        <span class="day-focus">🌾 膳食纤维 + 锌日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">杂粮粥（小米+燕麦）</div>
+            <div class="side">煎蛋 · 豆浆 · 香蕉半根</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">牡蛎豆腐汤</div>
+            <div class="side">糙米饭 · 清炒莴笋 · 蒸南瓜</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">鸡肉蔬菜焖饭</div>
+            <div class="side">紫菜蛋花汤 · 凉拌黄瓜</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：酸奶 + 蓝莓 ｜ 下午：蒸红薯 + 牛奶</span>
+      </div>
+    </div>
+
+    <!-- 周六 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周六</span>
+        <span class="day-focus">🥜 健脑 + 抗氧化日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">核桃黑芝麻糊</div>
+            <div class="side">全麦包 · 鸡蛋 · 猕猴桃半个</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">沙丁鱼炖冬瓜</div>
+            <div class="side">米饭 · 炒西兰花 · 番茄汤</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">排骨玉米汤</div>
+            <div class="side">米饭 · 炒空心菜 · 凉拌海带</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：牛奶 200ml ｜ 下午：葡萄干 + 杏仁 10 颗</span>
+      </div>
+    </div>
+
+    <!-- 周日 -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">周日</span>
+        <span class="day-focus">🌿 综合调养日</span>
+      </div>
+      <div class="meals-grid">
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌅</span>早餐</div>
+          <div class="meal-items">
+            <div class="main">南瓜蒸蛋 + 豆浆</div>
+            <div class="side">全麦馒头 · 橙子半个</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">☀️</span>午餐</div>
+          <div class="meal-items">
+            <div class="main">鲈鱼蒸豆腐</div>
+            <div class="side">米饭 · 炒芥蓝 · 山药排骨汤</div>
+          </div>
+        </div>
+        <div class="meal-block">
+          <div class="meal-type"><span class="meal-type-icon">🌙</span>晚餐</div>
+          <div class="meal-items">
+            <div class="main">鸡蛋韭菜饺子</div>
+            <div class="side">番茄蛋花汤 · 拌菠菜</div>
+          </div>
+        </div>
+      </div>
+      <div class="snack-row">
+        <span class="snack-label">加餐</span>
+        <span class="snack-content">上午：酸奶 + 草莓 ｜ 下午：板栗 5 颗 + 核桃 2 颗</span>
+      </div>
+    </div>
+
+  </div><!-- /week2 -->
+
+  <!-- Tips -->
+  <div class="tips-section">
+    <div class="tips-title">⚡ 孕中期饮食要点</div>
+    <div class="tips-grid">
+      <div class="tip-item"><div class="tip-dot"></div><span>每天饮水 1500–1700ml，汤水计入</span></div>
+      <div class="tip-item"><div class="tip-dot"></div><span>每周吃鱼 2–3 次，优先低汞鱼</span></div>
+      <div class="tip-item"><div class="tip-dot"></div><span>铁质食物搭配维C同吃，吸收翻倍</span></div>
+      <div class="tip-item"><div class="tip-dot"></div><span>烹调用碘盐，海带每周 1 次即可</span></div>
+      <div class="tip-item"><div class="tip-dot"></div><span>少量多餐，正餐七八分饱为宜</span></div>
+      <div class="tip-item"><div class="tip-dot"></div><span>少油少盐少糖，避免重口味加工食品</span></div>
+      <div class="tip-item"><div class="tip-dot"></div><span>猪肝每周 1–2 次即可，不过量</span></div>
+      <div class="tip-item"><div class="tip-dot"></div><span>坚果每天一小把（约 20–30g）</span></div>
+    </div>
+  </div>
+
+  <div class="supplement-box">
+    <div class="supplement-title">💊 孕期营养补充建议（遵医嘱）</div>
+    <div class="supplement-list">
+      <span class="supplement-tag">叶酸 400µg/天</span>
+      <span class="supplement-tag">DHA 200mg/天</span>
+      <span class="supplement-tag">钙 1000mg/天</span>
+      <span class="supplement-tag">铁（缺铁时补）</span>
+      <span class="supplement-tag">维生素D 400IU</span>
+      <span class="supplement-tag">孕妇复合维生素</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function switchWeek(n) {
+  document.querySelectorAll('.week-view').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.week-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('week' + n).classList.add('active');
+  document.querySelectorAll('.week-tab')[n - 1].classList.add('active');
+}
+</script>
+</body>
+</html>
