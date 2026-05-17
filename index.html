@@ -3,50 +3,821 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Health Documents</title>
+<title>健康饮食计划</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background-color: #f5f5f7;
-        color: #333;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
-    .container {
-        background: white;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        text-align: center;
-    }
-    h1 {
-        margin-top: 0;
-        color: #2c3e50;
-    }
-    a {
-        display: block;
-        margin-top: 12px;
-        padding: 10px 20px;
-        background-color: #3498db;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        transition: background-color 0.3s;
-    }
-    a:hover {
-        background-color: #2980b9;
-    }
+  :root {
+    --ink:        #1a2318;
+    --jade:       #2d6a4f;
+    --jade-mid:   #40916c;
+    --jade-light: #52b788;
+    --jade-pale:  #d8f3dc;
+    --bamboo:     #606c38;
+    --cream:      #f8f5ef;
+    --warm-white: #fdfaf5;
+    --gold:       #c9a84c;
+    --rust:       #e76f51;
+    --amber:      #f4a261;
+    --text:       #1b2016;
+    --text-mid:   #4a5240;
+    --text-muted: #8a9280;
+    --border:     #dde8d8;
+    --card-bg:    #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  body {
+    font-family: 'Noto Sans SC', -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── Top nav bar ─────────────────────────────── */
+  .top-nav {
+    background: var(--ink);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .top-nav-brand {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 2px;
+  }
+  .top-nav-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .top-nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 12px;
+    padding: 5px 14px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    transition: background 0.25s, color 0.25s;
+    white-space: nowrap;
+  }
+  .top-nav-links a:hover {
+    background: var(--jade-light);
+    border-color: var(--jade-light);
+    color: #fff;
+  }
+
+  /* ── Hero ────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(150deg, var(--ink) 0%, #1b4332 55%, #081c15 100%);
+    padding: 72px 24px 88px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* decorative ink-wash circles */
+  .hero::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 360px; height: 360px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,183,136,0.12) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -100px; left: -60px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+  }
+  /* Chinese seal decorative mark */
+  .hero-seal {
+    display: inline-block;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 5px 18px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(30px, 7vw, 54px);
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--jade-light);
+  }
+  .hero-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 13px;
+    line-height: 2;
+    max-width: 340px;
+    margin: 0 auto 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-divider {
+    width: 40px; height: 1px;
+    background: var(--gold);
+    margin: 0 auto 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--jade-light);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 6px;
+    letter-spacing: 1px;
+  }
+
+  /* ── Tips ribbon ─────────────────────────────── */
+  .tips-bar {
+    background: var(--jade);
+    padding: 14px 24px;
+    display: flex;
+    gap: 28px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tips-bar::-webkit-scrollbar { display: none; }
+  .tip-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    color: rgba(255,255,255,0.88);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .tip-icon { font-size: 15px; }
+
+  /* ── Main layout ─────────────────────────────── */
+  main {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px 72px;
+  }
+
+  /* ── Section heading ─────────────────────────── */
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    color: var(--jade);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: 1px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+
+  /* ── Calorie summary card ────────────────────── */
+  .calorie-card {
+    background: linear-gradient(135deg, var(--jade) 0%, var(--jade-mid) 100%);
+    border-radius: 16px;
+    padding: 28px 28px 24px;
+    margin-bottom: 36px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .calorie-card::after {
+    content: '🥗';
+    position: absolute;
+    right: 24px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 72px;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+  .calorie-card h3 {
+    font-size: 11px;
+    opacity: 0.65;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    font-weight: 400;
+  }
+  .calorie-main {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .calorie-main span { font-size: 15px; opacity: 0.65; }
+  .calorie-note { font-size: 12px; opacity: 0.7; margin-top: 6px; }
+  .calorie-bars { margin-top: 22px; display: flex; flex-direction: column; gap: 11px; }
+  .cbar-row { display: flex; align-items: center; gap: 10px; }
+  .cbar-label { font-size: 11px; opacity: 0.75; width: 42px; }
+  .cbar-track { flex: 1; height: 5px; background: rgba(255,255,255,0.18); border-radius: 3px; }
+  .cbar-fill { height: 100%; border-radius: 3px; }
+  .cbar-val { font-size: 11px; opacity: 0.75; width: 38px; text-align: right; }
+
+  /* ── Day cards ───────────────────────────────── */
+  .day-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 8px rgba(26,35,24,0.07);
+    border: 1px solid var(--border);
+    animation: fadeUp 0.45s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .day-card:nth-child(1) { animation-delay: 0.04s; }
+  .day-card:nth-child(2) { animation-delay: 0.09s; }
+  .day-card:nth-child(3) { animation-delay: 0.14s; }
+  .day-card:nth-child(4) { animation-delay: 0.19s; }
+  .day-card:nth-child(5) { animation-delay: 0.24s; }
+  .day-card:nth-child(6) { animation-delay: 0.29s; }
+  .day-card:nth-child(7) { animation-delay: 0.34s; }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .day-num {
+    width: 46px; height: 46px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .day-info { flex: 1; }
+  .day-name { font-size: 15px; font-weight: 500; color: var(--text); }
+  .day-preview { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .day-toggle {
+    font-size: 16px;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+  }
+  .day-card.open .day-toggle { transform: rotate(180deg); }
+
+  .day-body { display: none; padding: 0 20px 20px; }
+  .day-card.open .day-body { display: block; }
+
+  .meal-row {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-top: 1px solid #f0f3ee;
+    align-items: flex-start;
+  }
+  .meal-icon-wrap {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .meal-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .meal-items {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.8;
+  }
+  .meal-items span {
+    display: inline-block;
+    background: var(--jade-pale);
+    color: var(--jade);
+    border-radius: 4px;
+    padding: 1px 8px;
+    margin: 2px 3px 2px 0;
+    font-size: 12px;
+  }
+
+  /* day color accents */
+  .d1 { background: linear-gradient(135deg, #2d6a4f, #52b788); }
+  .d2 { background: linear-gradient(135deg, #457b9d, #a8dadc); }
+  .d3 { background: linear-gradient(135deg, #e76f51, #f4a261); }
+  .d4 { background: linear-gradient(135deg, #6d597a, #b5838d); }
+  .d5 { background: linear-gradient(135deg, #606c38, #dda15e); }
+  .d6 { background: linear-gradient(135deg, #0077b6, #48cae4); }
+  .d7 { background: linear-gradient(135deg, #bc4749, #e9c46a); }
+
+  .breakfast-icon  { background: #fff7ed; }
+  .lunch-icon      { background: #f0fdf4; }
+  .dinner-icon     { background: #eff6ff; }
+  .breakfast-label { color: #c05621; }
+  .lunch-label     { color: #166534; }
+  .dinner-label    { color: #1e40af; }
+
+  /* ── Principles grid ─────────────────────────── */
+  .principles { margin-top: 40px; }
+  .principle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .principle-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 18px;
+  }
+  .principle-icon { font-size: 26px; margin-bottom: 10px; }
+  .principle-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--jade);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .principle-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ── More docs section ───────────────────────── */
+  .more-docs { margin-top: 48px; }
+  .doc-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .doc-link {
+    display: block;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 18px;
+    text-decoration: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .doc-link:hover {
+    border-color: var(--jade-light);
+    box-shadow: 0 4px 16px rgba(45,106,79,0.12);
+  }
+  .doc-link-icon { font-size: 28px; margin-bottom: 10px; }
+  .doc-link-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--jade);
+    margin-bottom: 4px;
+  }
+  .doc-link-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── Footer ──────────────────────────────────── */
+  footer {
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Responsive ──────────────────────────────── */
+  @media (max-width: 420px) {
+    .principle-grid,
+    .doc-links { grid-template-columns: 1fr; }
+    main { padding: 28px 16px 60px; }
+  }
 </style>
 </head>
 <body>
-    <div class="container">
-        <h1>健康文档导航</h1>
-        <p>点击下方链接查看健康文档：</p>
-        <a href="doc/pregnancy-meal-plan.html">查看孕期两周食谱</a>
-        <a href="doc/pregnancy-constipation.html">孕期便秘的缓解方法</a>
+
+<!-- Top navigation -->
+<nav class="top-nav">
+  <span class="top-nav-brand">健 康 管 理</span>
+  <div class="top-nav-links">
+    <a href="doc/pregnancy-meal-plan.html">孕期两周食谱</a>
+    <a href="doc/pregnancy-constipation.html">孕期便秘缓解</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-seal">个人定制计划</div>
+  <h1>一周<em>减脂餐</em>计划</h1>
+  <p class="hero-sub">34岁 · 177cm · 160斤 · 办公室久坐<br>科学控热量，好吃不挨饿</p>
+  <div class="hero-divider"></div>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">1700</span>
+      <div class="stat-label">每日热量 kcal</div>
     </div>
+    <div class="stat">
+      <span class="stat-num">−500</span>
+      <div class="stat-label">热量缺口</div>
+    </div>
+    <div class="stat">
+      <span class="stat-num">7</span>
+      <div class="stat-label">天完整计划</div>
+    </div>
+  </div>
+</div>
+
+<!-- Tips ribbon -->
+<div class="tips-bar">
+  <div class="tip-item"><span class="tip-icon">💧</span>每天喝水 1500ml+</div>
+  <div class="tip-item"><span class="tip-icon">🚫</span>戒含糖饮料</div>
+  <div class="tip-item"><span class="tip-icon">🕐</span>每小时起身活动5分钟</div>
+  <div class="tip-item"><span class="tip-icon">🧂</span>少油少盐</div>
+  <div class="tip-item"><span class="tip-icon">🥚</span>每餐保证蛋白质</div>
+</div>
+
+<main>
+
+  <!-- Calorie overview -->
+  <div class="calorie-card">
+    <h3>每日热量目标</h3>
+    <div class="calorie-main">1600–1800 <span>kcal</span></div>
+    <div class="calorie-note">维持热量约 2200 kcal，每日缺口 400–500 kcal</div>
+    <div class="calorie-bars">
+      <div class="cbar-row">
+        <div class="cbar-label">蛋白质</div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:70%;background:#52b788;"></div></div>
+        <div class="cbar-val">130g</div>
+      </div>
+      <div class="cbar-row">
+        <div class="cbar-label">碳水</div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:45%;background:#f4a261;"></div></div>
+        <div class="cbar-val">180g</div>
+      </div>
+      <div class="cbar-row">
+        <div class="cbar-label">脂肪</div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:35%;background:#e76f51;"></div></div>
+        <div class="cbar-val">50g</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">📅 每日菜单</div>
+
+  <!-- Day 1 -->
+  <div class="day-card open" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-num d1">一</div>
+      <div class="day-info">
+        <div class="day-name">周一</div>
+        <div class="day-preview">全麦蛋 · 鸡胸西兰花 · 番茄豆腐</div>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="meal-row">
+        <div class="meal-icon-wrap breakfast-icon">🌅</div>
+        <div>
+          <div class="meal-label breakfast-label">早餐</div>
+          <div class="meal-items"><span>全麦面包×2片</span><span>水煮蛋×2</span><span>无糖豆浆250ml</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap lunch-icon">☀️</div>
+        <div>
+          <div class="meal-label lunch-label">午餐</div>
+          <div class="meal-items"><span>杂粮饭100g</span><span>鸡胸肉150g</span><span>清炒西兰花</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap dinner-icon">🌙</div>
+        <div>
+          <div class="meal-label dinner-label">晚餐</div>
+          <div class="meal-items"><span>蒸红薯150g</span><span>番茄豆腐汤</span><span>炒菠菜</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 2 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-num d2">二</div>
+      <div class="day-info">
+        <div class="day-name">周二</div>
+        <div class="day-preview">燕麦粥 · 清蒸鱼 · 杂粮豆腐</div>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="meal-row">
+        <div class="meal-icon-wrap breakfast-icon">🌅</div>
+        <div>
+          <div class="meal-label breakfast-label">早餐</div>
+          <div class="meal-items"><span>燕麦粥50g</span><span>白煮蛋×1</span><span>混合坚果一把</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap lunch-icon">☀️</div>
+        <div>
+          <div class="meal-label lunch-label">午餐</div>
+          <div class="meal-items"><span>杂粮饭100g</span><span>清蒸鱼150g</span><span>炒青菜</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap dinner-icon">🌙</div>
+        <div>
+          <div class="meal-label dinner-label">晚餐</div>
+          <div class="meal-items"><span>杂粮粥1碗</span><span>凉拌黄瓜</span><span>豆腐100g</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 3 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-num d3">三</div>
+      <div class="day-info">
+        <div class="day-name">周三</div>
+        <div class="day-preview">牛油果吐司 · 牛肉蘑菇 · 玉米海带</div>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="meal-row">
+        <div class="meal-icon-wrap breakfast-icon">🌅</div>
+        <div>
+          <div class="meal-label breakfast-label">早餐</div>
+          <div class="meal-items"><span>全麦面包×2片</span><span>牛油果半个</span><span>牛奶200ml</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap lunch-icon">☀️</div>
+        <div>
+          <div class="meal-label lunch-label">午餐</div>
+          <div class="meal-items"><span>杂粮饭100g</span><span>少油炒牛肉150g</span><span>炒蘑菇</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap dinner-icon">🌙</div>
+        <div>
+          <div class="meal-label dinner-label">晚餐</div>
+          <div class="meal-items"><span>蒸玉米×1根</span><span>番茄炒蛋少油</span><span>凉拌海带</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 4 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-num d4">四</div>
+      <div class="day-info">
+        <div class="day-name">周四</div>
+        <div class="day-preview">燕麦番茄 · 虾仁西兰花 · 豆腐蒸蛋</div>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="meal-row">
+        <div class="meal-icon-wrap breakfast-icon">🌅</div>
+        <div>
+          <div class="meal-label breakfast-label">早餐</div>
+          <div class="meal-items"><span>燕麦粥</span><span>水煮蛋×2</span><span>小番茄一把</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap lunch-icon">☀️</div>
+        <div>
+          <div class="meal-label lunch-label">午餐</div>
+          <div class="meal-items"><span>杂粮饭100g</span><span>虾仁炒西兰花</span><span>紫菜蛋花汤</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap dinner-icon">🌙</div>
+        <div>
+          <div class="meal-label dinner-label">晚餐</div>
+          <div class="meal-items"><span>蒸红薯150g</span><span>清炒豆芽</span><span>豆腐蒸蛋</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 5 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-num d5">五</div>
+      <div class="day-info">
+        <div class="day-name">周五</div>
+        <div class="day-preview">希腊酸奶 · 鸡胸彩椒 · 清蒸鱼</div>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="meal-row">
+        <div class="meal-icon-wrap breakfast-icon">🌅</div>
+        <div>
+          <div class="meal-label breakfast-label">早餐</div>
+          <div class="meal-items"><span>无糖希腊酸奶150g</span><span>燕麦30g</span><span>蓝莓/草莓</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap lunch-icon">☀️</div>
+        <div>
+          <div class="meal-label lunch-label">午餐</div>
+          <div class="meal-items"><span>杂粮饭100g</span><span>鸡胸肉150g</span><span>炒彩椒</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap dinner-icon">🌙</div>
+        <div>
+          <div class="meal-label dinner-label">晚餐</div>
+          <div class="meal-items"><span>杂粮粥</span><span>清蒸鱼</span><span>炒青菜</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 6 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-num d6">六</div>
+      <div class="day-info">
+        <div class="day-name">周六</div>
+        <div class="day-preview">煎蛋吐司 · 荞麦面 · 蒸玉米</div>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="meal-row">
+        <div class="meal-icon-wrap breakfast-icon">🌅</div>
+        <div>
+          <div class="meal-label breakfast-label">早餐</div>
+          <div class="meal-items"><span>全麦面包×2片</span><span>少油煎蛋×1</span><span>牛奶200ml</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap lunch-icon">☀️</div>
+        <div>
+          <div class="meal-label lunch-label">午餐</div>
+          <div class="meal-items"><span>荞麦面100g</span><span>鸡蛋×2</span><span>菠菜</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap dinner-icon">🌙</div>
+        <div>
+          <div class="meal-label dinner-label">晚餐</div>
+          <div class="meal-items"><span>蒸玉米×1根</span><span>番茄豆腐汤</span><span>凉拌木耳</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 7 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-num d7">日</div>
+      <div class="day-info">
+        <div class="day-name">周日</div>
+        <div class="day-preview">燕麦豆浆 · 清蒸排骨 · 虾仁豆腐</div>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="meal-row">
+        <div class="meal-icon-wrap breakfast-icon">🌅</div>
+        <div>
+          <div class="meal-label breakfast-label">早餐</div>
+          <div class="meal-items"><span>燕麦粥</span><span>水煮蛋×2</span><span>无糖豆浆250ml</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap lunch-icon">☀️</div>
+        <div>
+          <div class="meal-label lunch-label">午餐</div>
+          <div class="meal-items"><span>杂粮饭100g</span><span>清蒸排骨少量</span><span>炒西葫芦</span></div>
+        </div>
+      </div>
+      <div class="meal-row">
+        <div class="meal-icon-wrap dinner-icon">🌙</div>
+        <div>
+          <div class="meal-label dinner-label">晚餐</div>
+          <div class="meal-items"><span>蒸红薯</span><span>虾仁豆腐汤</span><span>炒菠菜</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dietary principles -->
+  <div class="principles">
+    <div class="section-title">💡 饮食原则</div>
+    <div class="principle-grid">
+      <div class="principle-card">
+        <div class="principle-icon">🍚</div>
+        <div class="principle-title">主食控量</div>
+        <div class="principle-desc">每餐100g以内（生重），优先糙米、燕麦、红薯、玉米</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">🥩</div>
+        <div class="principle-title">蛋白优先</div>
+        <div class="principle-desc">每餐必有蛋白质，鸡胸/鱼/虾/蛋/豆腐轮换搭配</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">🫒</div>
+        <div class="principle-title">控油少盐</div>
+        <div class="principle-desc">每天用油不超过25g，以蒸煮为主，少油炒为辅</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">🥒</div>
+        <div class="principle-title">健康加餐</div>
+        <div class="principle-desc">饿了吃黄瓜、番茄、少量坚果，不喝含糖饮料</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- More docs -->
+  <div class="more-docs">
+    <div class="section-title">📂 更多健康文档</div>
+    <div class="doc-links">
+      <a class="doc-link" href="doc/pregnancy-meal-plan.html">
+        <div class="doc-link-icon">🤰</div>
+        <div class="doc-link-title">孕期两周食谱</div>
+        <div class="doc-link-desc">科学营养搭配，支持孕期健康</div>
+      </a>
+      <a class="doc-link" href="doc/pregnancy-constipation.html">
+        <div class="doc-link-icon">🌿</div>
+        <div class="doc-link-title">孕期便秘缓解</div>
+        <div class="doc-link-desc">饮食与生活方式调整建议</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer>本计划仅供参考，如有特殊健康状况请咨询医生或营养师</footer>
+
+<script>
+function toggle(card) {
+  card.classList.toggle('open');
+  card.setAttribute('aria-expanded', card.classList.contains('open'));
+}
+document.querySelectorAll('.day-card').forEach(function(card) {
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-expanded', card.classList.contains('open'));
+  card.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggle(card);
+    }
+  });
+});
+</script>
+
 </body>
 </html>
