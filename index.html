@@ -805,7 +805,18 @@
 <script>
 function toggle(card) {
   card.classList.toggle('open');
+  card.setAttribute('aria-expanded', card.classList.contains('open'));
 }
+document.querySelectorAll('.day-card').forEach(function(card) {
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-expanded', card.classList.contains('open'));
+  card.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggle(card);
+    }
+  });
+});
 </script>
 
 </body>
