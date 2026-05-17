@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一周减脂餐计划</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f9f5;
+    --warm-white: #f0f7f1;
+    --green: #4a8c5c;
+    --green-light: #a8d4b2;
+    --green-dark: #2e6640;
+    --orange: #e07b39;
+    --orange-light: #f5c09a;
+    --text-dark: #1e3a24;
+    --text-mid: #3d5e44;
+    --text-light: #7a9e82;
+    --border: #c8e0cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'Noto Sans SC', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.7;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #2e6640 0%, #4a8c5c 50%, #a8d4b2 100%);
+    padding: 52px 24px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .header-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 500;
+  }
+  .header h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(26px, 5vw, 38px);
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    margin-bottom: 12px;
+  }
+  .header p {
+    color: rgba(255,255,255,0.88);
+    font-size: 15px;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    background: var(--green-dark);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    padding: 14px 28px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-value {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--green-light);
+    font-family: 'Noto Serif SC', serif;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 1px;
+  }
+
+  /* Main content */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+  }
+
+  /* Principles banner */
+  .principles {
+    background: linear-gradient(135deg, var(--green-dark), var(--green));
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 40px;
+    color: #fff;
+  }
+  .principles h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .principle-card {
+    background: rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 12px 16px;
+  }
+  .principle-card strong {
+    display: block;
+    font-size: 13px;
+    color: var(--green-light);
+    margin-bottom: 4px;
+  }
+  .principle-card span {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+  }
+
+  /* Section title */
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: var(--green-dark);
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Day cards */
+  .day-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .day-header {
+    background: linear-gradient(90deg, var(--green) 0%, var(--green-light) 100%);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .day-badge {
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+  }
+  .day-header h3 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .meals {
+    padding: 0 20px 20px;
+  }
+  .meal-row {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 0 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .meal-row:last-child { border-bottom: none; }
+  .meal-type {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 4px 0;
+    text-align: center;
+    border-radius: 6px;
+    margin-top: 2px;
+  }
+  .meal-type.breakfast { background: #fff4e0; color: #b07000; }
+  .meal-type.lunch    { background: #e6f5ea; color: #2e6640; }
+  .meal-type.dinner   { background: #f0eafa; color: #5c3d9e; }
+  .meal-items {
+    font-size: 14.5px;
+    color: var(--text-mid);
+    line-height: 1.8;
+  }
+  .meal-items li {
+    list-style: none;
+    padding-left: 14px;
+    position: relative;
+  }
+  .meal-items li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  /* Tips section */
+  .tips-section {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    padding: 28px 32px;
+    margin-top: 40px;
+  }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .tip-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .tip-card .tip-icon {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  .tip-card strong {
+    display: block;
+    font-size: 14px;
+    color: var(--green-dark);
+    margin-bottom: 6px;
+  }
+  .tip-card p {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  /* Activity note */
+  .activity-note {
+    margin-top: 28px;
+    background: linear-gradient(135deg, #e8f5eb, #d4edda);
+    border-left: 4px solid var(--green);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--text-mid);
+  }
+  .activity-note strong { color: var(--green-dark); }
+
+  /* Back link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 28px;
+    color: var(--green-dark);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--green); }
+
+  @media (max-width: 600px) {
+    .stat-item { padding: 12px 16px; }
+    .principles { padding: 20px; }
+    .tips-section { padding: 20px; }
+    .day-header { padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-tag">🥦 减脂饮食方案</div>
+  <h1>一周减脂餐计划</h1>
+  <p>高蛋白 · 控碳水 · 少油少盐 · 食材简单易操作</p>
+</div>
+
+<!-- Stats bar -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-value">≈29</span>
+    <span class="stat-label">BMI 指数</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-value">2200 kcal</span>
+    <span class="stat-label">每日维持热量</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-value">1600–1800 kcal</span>
+    <span class="stat-label">减脂目标热量</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-value">400–500 kcal</span>
+    <span class="stat-label">每日热量缺口</span>
+  </div>
+</div>
+
+<!-- Main content -->
+<div class="main">
+
+  <a class="back-link" href="../index.html">← 返回文档导航</a>
+
+  <!-- Principles -->
+  <div class="principles">
+    <h2>⚡ 饮食原则</h2>
+    <div class="principles-grid">
+      <div class="principle-card">
+        <strong>主食控量</strong>
+        <span>每餐 100g 以内（生重），优先糙米 / 燕麦 / 红薯 / 玉米，少吃白米饭</span>
+      </div>
+      <div class="principle-card">
+        <strong>蛋白质优先</strong>
+        <span>每餐必须有，鸡胸 / 鱼 / 虾 / 蛋 / 豆腐轮换搭配</span>
+      </div>
+      <div class="principle-card">
+        <strong>低脂烹饪</strong>
+        <span>蒸、煮、少油炒为主，每天用油不超过 25g</span>
+      </div>
+      <div class="principle-card">
+        <strong>零食 &amp; 饮水</strong>
+        <span>饿了吃黄瓜 / 番茄 / 少量坚果，不喝含糖饮料，每天≥1500ml 水</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Days -->
+  <div class="section-title">📅 每日食谱</div>
+
+  <!-- Monday -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">MON</span>
+      <h3>周一</h3>
+    </div>
+    <div class="meals">
+      <div class="meal-row">
+        <span class="meal-type breakfast">早餐</span>
+        <ul class="meal-items">
+          <li>全麦面包 2 片</li>
+          <li>水煮蛋 2 个</li>
+          <li>无糖豆浆 250ml</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type lunch">午餐</span>
+        <ul class="meal-items">
+          <li>杂粮饭（糙米 + 燕麦）100g</li>
+          <li>清炒西兰花</li>
+          <li>鸡胸肉 150g</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type dinner">晚餐</span>
+        <ul class="meal-items">
+          <li>蒸红薯 1 个（150g）</li>
+          <li>番茄豆腐汤</li>
+          <li>炒菠菜</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tuesday -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">TUE</span>
+      <h3>周二</h3>
+    </div>
+    <div class="meals">
+      <div class="meal-row">
+        <span class="meal-type breakfast">早餐</span>
+        <ul class="meal-items">
+          <li>燕麦粥（燕麦 50g）</li>
+          <li>白煮蛋 1 个</li>
+          <li>一小把坚果</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type lunch">午餐</span>
+        <ul class="meal-items">
+          <li>杂粮饭 100g</li>
+          <li>清蒸鱼 150g</li>
+          <li>炒青菜</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type dinner">晚餐</span>
+        <ul class="meal-items">
+          <li>杂粮粥 1 碗</li>
+          <li>凉拌黄瓜</li>
+          <li>豆腐 100g</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wednesday -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">WED</span>
+      <h3>周三</h3>
+    </div>
+    <div class="meals">
+      <div class="meal-row">
+        <span class="meal-type breakfast">早餐</span>
+        <ul class="meal-items">
+          <li>全麦面包 2 片</li>
+          <li>牛油果半个</li>
+          <li>牛奶 200ml</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type lunch">午餐</span>
+        <ul class="meal-items">
+          <li>杂粮饭 100g</li>
+          <li>牛肉 150g（少油炒或水煮）</li>
+          <li>炒蘑菇</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type dinner">晚餐</span>
+        <ul class="meal-items">
+          <li>蒸玉米 1 根</li>
+          <li>番茄炒蛋（少油）</li>
+          <li>凉拌海带</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thursday -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">THU</span>
+      <h3>周四</h3>
+    </div>
+    <div class="meals">
+      <div class="meal-row">
+        <span class="meal-type breakfast">早餐</span>
+        <ul class="meal-items">
+          <li>燕麦粥</li>
+          <li>水煮蛋 2 个</li>
+          <li>小番茄一把</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type lunch">午餐</span>
+        <ul class="meal-items">
+          <li>杂粮饭 100g</li>
+          <li>虾仁炒西兰花</li>
+          <li>紫菜蛋花汤</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type dinner">晚餐</span>
+        <ul class="meal-items">
+          <li>蒸红薯 150g</li>
+          <li>清炒豆芽</li>
+          <li>豆腐蒸蛋</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Friday -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">FRI</span>
+      <h3>周五</h3>
+    </div>
+    <div class="meals">
+      <div class="meal-row">
+        <span class="meal-type breakfast">早餐</span>
+        <ul class="meal-items">
+          <li>无糖希腊酸奶 150g</li>
+          <li>燕麦 30g</li>
+          <li>蓝莓 / 草莓</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type lunch">午餐</span>
+        <ul class="meal-items">
+          <li>杂粮饭 100g</li>
+          <li>鸡胸肉 150g</li>
+          <li>炒彩椒</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type dinner">晚餐</span>
+        <ul class="meal-items">
+          <li>杂粮粥</li>
+          <li>清蒸鱼</li>
+          <li>炒青菜</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Saturday -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">SAT</span>
+      <h3>周六</h3>
+    </div>
+    <div class="meals">
+      <div class="meal-row">
+        <span class="meal-type breakfast">早餐</span>
+        <ul class="meal-items">
+          <li>全麦面包 2 片</li>
+          <li>煎蛋 1 个（少油）</li>
+          <li>牛奶</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type lunch">午餐</span>
+        <ul class="meal-items">
+          <li>荞麦面 100g（干重）</li>
+          <li>鸡蛋 2 个</li>
+          <li>菠菜</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type dinner">晚餐</span>
+        <ul class="meal-items">
+          <li>蒸玉米 1 根</li>
+          <li>番茄豆腐汤</li>
+          <li>凉拌木耳</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sunday -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">SUN</span>
+      <h3>周日</h3>
+    </div>
+    <div class="meals">
+      <div class="meal-row">
+        <span class="meal-type breakfast">早餐</span>
+        <ul class="meal-items">
+          <li>燕麦粥</li>
+          <li>水煮蛋 2 个</li>
+          <li>无糖豆浆</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type lunch">午餐</span>
+        <ul class="meal-items">
+          <li>杂粮饭 100g</li>
+          <li>清蒸排骨（少量）</li>
+          <li>炒西葫芦</li>
+        </ul>
+      </div>
+      <div class="meal-row">
+        <span class="meal-type dinner">晚餐</span>
+        <ul class="meal-items">
+          <li>蒸红薯</li>
+          <li>虾仁豆腐汤</li>
+          <li>炒菠菜</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips -->
+  <div class="tips-section">
+    <div class="section-title" style="margin-bottom:4px; border:none; padding:0;">💡 关键贴士</div>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">🌾</div>
+        <strong>主食选择</strong>
+        <p>每餐 100g 以内（生重），糙米 / 燕麦 / 红薯 / 玉米优先，白米饭尽量少吃</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🍗</div>
+        <strong>蛋白质补充</strong>
+        <p>每餐都要有蛋白质来源，鸡胸 / 鱼 / 虾 / 蛋 / 豆腐轮换，保持饱腹感</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🥘</div>
+        <strong>低脂烹饪</strong>
+        <p>以蒸、煮、少油炒为主，每天用油总量不超过 25g</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🥒</div>
+        <strong>零食管理</strong>
+        <p>饿了可以吃黄瓜、番茄、少量坚果，绝对不喝含糖饮料</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">💧</div>
+        <strong>充足饮水</strong>
+        <p>每天至少 1500ml 水，有助于提高代谢、减少饥饿感</p>
+      </div>
+    </div>
+    <div class="activity-note">
+      🚶 <strong>久坐提醒：</strong>哪怕每小时起来走动 5 分钟，也对减脂有明显帮助，坚持下去效果更好！
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+</body>
+</html>
